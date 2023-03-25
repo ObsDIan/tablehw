@@ -17,7 +17,23 @@
             <button type="submit" class="btn btn-primary ">XXX</button>
         </form>
     </header>
+
+
+
+    <input type="checkbox" class="form-check-input" id="checkbox1">
+    <label for="checkbox1">3C</label>
+    <input type="checkbox" class="form-check-input" id="checkbox2">
+    <label for="checkbox2">食品</label>
+    <input type="checkbox" class="form-check-input" id="checkbox3">
+    <label for="checkbox3">飲料</label>
+
+
     <div class="container" id="container">
+        <table class="table table-bordered table-striped table-dark" id="table">
+            <thead id="thead"></thead>
+            <tbody id="tbody"></tbody>
+        </table>
+
 
     </div>
 
@@ -33,45 +49,111 @@
         import { product } from './product.js';
         let arr = [];
         const title = ['ID', '名稱', '數量', '價格', '類型'];
+        let check1 = document.getElementById('checkbox1');
+        let check2 = document.getElementById('checkbox2');
+        let check3 = document.getElementById('checkbox3');
+
+        let checkbox = document.querySelectorAll('.form-check-input');
 
 
         SetData(product, title);
 
-        console.log(thead.innerHTML);
+        // 篩選
+        {
+            let product_arr = []
+            product.forEach(x => {
+                product_arr.push(Object.values(x));
+            });
+
+            let c1 = product_arr.filter(x => x[4] == "3C");
+            let c2 = product_arr.filter(x => x[4] == "食品");
+            let c3 = product_arr.filter(x => x[4] == "飲料");
+
+            checkbox.forEach(x => {
+                x.addEventListener('change', function () {
+                    let temp = [];
+
+                    if (!check1.checked && !check2.checked && !check3.checked) {
+                        temp.push(product_arr)
+                    };
+
+                    if (check1.checked) {
+                        temp.push(c1);
+                    }
+
+                    if (check2.checked) {
+                        temp.push(c2);
+                    }
+
+                    if (check3.checked) {
+                        temp.push(c3);
+                    }
+                    ChangeData(temp);
+                    console.log(temp);
+                });
+            });
+        }
+
+
+
 
     </script>
 
     <script>
         function SetData(product, title) {
-            let table = document.createElement('table');
-            table.setAttribute('class', 'table table-bordered table-striped table-dark');
-            let container = document.getElementById('container')
-            let tbody = document.createElement('tbody');
+            let table = document.getElementById('table');
+
+            // let container = document.getElementById('container')
+            let tbody = document.getElementById('tbody');
             product.forEach(x => {
                 let tr = document.createElement('tr');
                 let val = Object.values(x)
                 val.forEach(y => {
                     let td = document.createElement('td');
                     td.innerText = y;
-                    console.log(td.innerText);
+                    // console.log(td.innerText);
                     tr.append(td);
                 });
                 tbody.appendChild(tr);
             });
-
-
-            let thead = document.createElement('thead');
+            let thead = document.getElementById('thead');
             let tr = document.createElement('tr');
             title.forEach(x => {
-
                 let th = document.createElement('th');
                 th.innerText = x;
                 tr.appendChild(th);
             });
             thead.appendChild(tr);
             table.append(thead, tbody);
-            container.append(table);
+            // container.append(table);
         }
+
+
+        function ChangeData(product) {
+
+            let table = document.getElementById('table');
+            let tbody = document.getElementById('tbody');
+            tbody.remove();
+            tbody = document.createElement('tbody');
+            tbody.setAttribute('id', 'tbody');
+
+            product.forEach(x => {
+                x.forEach(y => {
+                    let tr = document.createElement('tr');
+                    for (let i = 0; i < y.length; i++) {
+                        let td = document.createElement('td');
+                        td.innerText = y[i];
+                        // console.log(td.innerText);
+                        tr.append(td);
+                    };
+                    tbody.appendChild(tr);
+                });
+                
+            });
+
+            
+            table.append(tbody);
+        };
     </script>
 </body>
 
