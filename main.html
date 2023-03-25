@@ -19,14 +19,19 @@
     </header>
 
 
-
-    <input type="checkbox" class="form-check-input" id="checkbox1">
-    <label for="checkbox1">3C</label>
-    <input type="checkbox" class="form-check-input" id="checkbox2">
-    <label for="checkbox2">食品</label>
-    <input type="checkbox" class="form-check-input" id="checkbox3">
-    <label for="checkbox3">飲料</label>
-
+    <div class="cb m-5 d-flex">
+        <label for="checkbox1" class="p-1"><input type="checkbox" class="form-check-input" id="checkbox1">3C</label>
+        <label for="checkbox2" class="p-1"><input type="checkbox" class="form-check-input" id="checkbox2">食品</label>
+        <label for="checkbox3" class="p-1"><input type="checkbox" class="form-check-input" id="checkbox3">飲料</label>
+    </div>
+    <div class="money m-5">
+        <label for="money">
+            <input type="checkbox" name="" id="money" class="form-check-input">
+            <input type="number" name="min" id="min" min="0">
+            <span>~</span>
+            <input type="number" name="max" id="max" min="0">
+        </label>
+    </div>
 
     <div class="container" id="container">
         <table class="table table-bordered table-striped table-dark" id="table">
@@ -52,6 +57,13 @@
         let check1 = document.getElementById('checkbox1');
         let check2 = document.getElementById('checkbox2');
         let check3 = document.getElementById('checkbox3');
+
+        let money = document.getElementById('money');
+        let max = document.getElementById('max');
+        max = max.value;
+
+        let min = document.getElementById('min');
+        min = min.value;
 
         let checkbox = document.querySelectorAll('.form-check-input');
 
@@ -88,8 +100,10 @@
                     if (check3.checked) {
                         temp.push(c3);
                     }
+                    // console.log(temp.filter(x => x[] < ));
+
                     ChangeData(temp);
-                    console.log(temp);
+                    // console.log(temp);
                 });
             });
         }
@@ -148,10 +162,10 @@
                     };
                     tbody.appendChild(tr);
                 });
-                
+
             });
 
-            
+
             table.append(tbody);
         };
     </script>
