@@ -60,10 +60,10 @@
 
         let money = document.getElementById('money');
         let max = document.getElementById('max');
-        max = max.value;
+        max = max.valueAsNumber;
 
         let min = document.getElementById('min');
-        min = min.value;
+        min = min.valueAsNumber;
 
         let checkbox = document.querySelectorAll('.form-check-input');
 
@@ -102,6 +102,11 @@
                     }
                     // console.log(temp.filter(x => x[] < ));
 
+                    // console.log();
+                    // console.log(min, max);
+                    
+
+                    // debugger;
                     ChangeData(temp);
                     // console.log(temp);
                 });
